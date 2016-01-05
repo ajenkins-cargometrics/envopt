@@ -31,17 +31,35 @@ print envopt(__doc__)
   '--c-opt': 'baz' }
 ```
 
-However, setting `ENV` variables `MY_OPT1`, `MY_OPT2`, or `MY_OPT3` will override the given defaults:
+However, setting `ENV` variables `A_OPT`, `B_OPT`, or `C_OPT` will override the given defaults:
 
 ```python
 import os
 from envopt import envopt
 
-os.environ['MY_OPT1'] = 'fe'
-os.environ['MY_OPT2'] = 'fi'
-os.environ['MY_OPT3'] = 'fo'
+os.environ['A_OPT'] = 'fe'
+os.environ['B_OPT'] = 'fi'
+os.environ['C_OPT'] = 'fo'
 
 print envopt(__doc__)
+
+{ '--a-opt': 'fe',
+  '--b-opt': 'fi',
+  '--c-opt': 'fo' }
+```
+
+You can also pass an optional `env_prefix` keyword argument to `envopt` to add a prefix to all the environment variable
+names:
+
+```python
+import os
+from envopt import envopt
+
+os.environ['PROG_A_OPT'] = 'fe'
+os.environ['PROG_B_OPT'] = 'fi'
+os.environ['PROG_C_OPT'] = 'fo'
+
+print envopt(__doc__, env_prefix='PROG_')
 
 { '--a-opt': 'fe',
   '--b-opt': 'fi',
